@@ -1,5 +1,19 @@
 export type ServiceId = "plataformas" | "estrategia" | "contenido" | "comunidad" | "informes";
 
+export type PlanId = "esencial" | "crecimiento" | "premium";
+
+export type Plan = {
+  id: PlanId;
+  label: string;
+  price: string;
+};
+
+export const plans: Plan[] = [
+  { id: "esencial", label: "Esencial", price: "599 €/mes" },
+  { id: "crecimiento", label: "Crecimiento", price: "799 €/mes" },
+  { id: "premium", label: "Premium", price: "1.199 €/mes" }
+];
+
 export type Service = {
   id: ServiceId;
   number: string;

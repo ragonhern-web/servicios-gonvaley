@@ -1,13 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { services, type ServiceId } from "@/data/services";
+import { plans, services, type PlanId, type ServiceId } from "@/data/services";
 import FeatureSection from "./FeatureSection";
 import FloatingNav from "./FloatingNav";
 import LeftPanel from "./LeftPanel";
 
 export default function ServiceLanding() {
   const [activeId, setActiveId] = useState<ServiceId>(services[0].id);
+  const [activePlanId, setActivePlanId] = useState<PlanId>("premium");
+  const activePlan = plans.find((plan) => plan.id === activePlanId) ?? plans[plans.length - 1];
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const railDotRef = useRef<HTMLSpanElement | null>(null);
   const sectionRefs = useRef(new Map<ServiceId, HTMLElement>());
@@ -58,7 +60,7 @@ export default function ServiceLanding() {
         },
         {
           root: isMobile ? null : scrollerRef.current,
-          threshold: [0.35, 0.5, 0.65],
+          threshold: [0, 0.1, 0.2, 0.3],
           rootMargin: isMobile ? "-30% 0px -45% 0px" : "-24% 0px -46% 0px"
         }
       );
@@ -99,7 +101,7 @@ export default function ServiceLanding() {
       <div className="ambient ambient-three" aria-hidden="true" />
 
       <main className="page-shell">
-        <LeftPanel services={services} activeId={activeId} onNavigate={scrollToSection} />
+        <LeftPanel services={services} activeId={activeId} onNavigate={scrollToSection} activePlan={activePlan} />
 
         <section className="right-frame" aria-label="Detalle del pack premium">
           <div className="rail" aria-hidden="true">
@@ -123,7 +125,12 @@ export default function ServiceLanding() {
         </section>
       </main>
 
-      <FloatingNav onNavigate={scrollToSection} />
+      <FloatingNav
+        plans={plans}
+        activePlanId={activePlanId}
+        onSelectPlan={setActivePlanId}
+        onStart={() => scrollToSection("plataformas")}
+      />
     </>
   );
 }

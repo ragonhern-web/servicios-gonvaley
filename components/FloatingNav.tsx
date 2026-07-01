@@ -1,18 +1,27 @@
-import type { ServiceId } from "@/data/services";
+import type { Plan, PlanId } from "@/data/services";
 
 type Props = {
-  onNavigate: (id: ServiceId) => void;
+  plans: Plan[];
+  activePlanId: PlanId;
+  onSelectPlan: (id: PlanId) => void;
+  onStart: () => void;
 };
 
-export default function FloatingNav({ onNavigate }: Props) {
+export default function FloatingNav({ plans, activePlanId, onSelectPlan, onStart }: Props) {
   return (
-    <footer className="floating-nav" aria-label="Navegación rápida">
+    <footer className="floating-nav" aria-label="Planes disponibles">
       <div className="floating-brand"><span className="pause-dot">Ⅱ</span><strong>AMZ Creatives</strong></div>
-      <button type="button" onClick={() => onNavigate("plataformas")}>Plataformas</button>
-      <button type="button" onClick={() => onNavigate("estrategia")}>Estrategia</button>
-      <button type="button" onClick={() => onNavigate("contenido")}>Contenido</button>
-      <button type="button" onClick={() => onNavigate("comunidad")}>Comunidad</button>
-      <button className="nav-cta" type="button" onClick={() => onNavigate("informes")}>Empezar</button>
+      {plans.map((plan) => (
+        <button
+          key={plan.id}
+          className={activePlanId === plan.id ? "is-active" : ""}
+          type="button"
+          onClick={() => onSelectPlan(plan.id)}
+        >
+          {plan.label}
+        </button>
+      ))}
+      <button className="nav-cta" type="button" onClick={onStart}>Empezar</button>
     </footer>
   );
 }
