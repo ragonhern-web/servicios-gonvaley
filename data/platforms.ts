@@ -1,3 +1,5 @@
+import type { PlanConfig } from "./planConfigs";
+
 export type PlatformId = "instagram" | "tiktok" | "shorts" | "google";
 
 export type Platform = {
@@ -75,3 +77,10 @@ export const platforms: Platform[] = [
     }
   }
 ];
+
+export function isPlatformAvailable(plan: PlanConfig, platformId: PlatformId): boolean {
+  if (platformId === "instagram") return plan.platforms.instagram;
+  if (platformId === "tiktok") return plan.platforms.tiktok;
+  if (platformId === "shorts") return plan.platforms.youtubeShorts;
+  return plan.platforms.googleBusiness !== "none";
+}

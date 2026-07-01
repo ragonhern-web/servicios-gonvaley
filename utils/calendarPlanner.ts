@@ -1,4 +1,4 @@
-import type { GoogleBusinessLevel, PlanConfig } from "@/data/planConfigs";
+import type { PlanConfig } from "@/data/planConfigs";
 
 export type CalendarCategory = "posts" | "reels" | "stories" | "google" | "creative";
 
@@ -100,12 +100,12 @@ export function buildMonthPlan(year: number, month: number, plan: PlanConfig): M
       .forEach((d) => { byDay(d).story = true; });
   }
 
-  if (plan.googleBusiness !== "none") {
+  if (plan.platforms.googleBusiness !== "none") {
     daysMatchingWeekdays(year, month, daysInMonth, GOOGLE_WEEKDAY)
       .forEach((d, idx) => {
         const dayEntry = byDay(d);
         dayEntry.google = true;
-        if (plan.googleBusiness === "complete") {
+        if (plan.platforms.googleBusiness === "complete") {
           dayEntry.googleExtra = GOOGLE_EXTRA_CYCLE[idx % GOOGLE_EXTRA_CYCLE.length];
         }
       });
@@ -153,8 +153,8 @@ export function dayHasCategory(day: CalendarDay, category: CalendarCategory): bo
   return day.creative;
 }
 
-export function googleBusinessLabel(level: GoogleBusinessLevel): string {
-  if (level === "complete") return "Completo";
-  if (level === "basic") return "Básico";
-  return "No incluido";
+export function isCategoryAvailable(plan: PlanConfig, category: CalendarCategory): boolean {
+  if (category === "google") return plan.platforms.googleBusiness !== "none";
+  if (category === "creative") return plan.creativeSessionsPerMonth > 0;
+  return true;
 }

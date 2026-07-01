@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { plans, services, type PlanId, type ServiceId } from "@/data/services";
+import { services, type ServiceId } from "@/data/services";
+import { planConfigs, planOrder, type PlanId } from "@/data/planConfigs";
 import FeatureSection from "./FeatureSection";
 import PlanSwitcher from "./PlanSwitcher";
 import LeftPanel from "./LeftPanel";
@@ -9,7 +10,7 @@ import LeftPanel from "./LeftPanel";
 export default function ServiceLanding() {
   const [activeId, setActiveId] = useState<ServiceId>(services[0].id);
   const [activePlanId, setActivePlanId] = useState<PlanId>("premium");
-  const activePlan = plans.find((plan) => plan.id === activePlanId) ?? plans[plans.length - 1];
+  const activePlan = planConfigs[activePlanId];
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const railDotRef = useRef<HTMLSpanElement | null>(null);
   const sectionRefs = useRef(new Map<ServiceId, HTMLElement>());
@@ -111,7 +112,7 @@ export default function ServiceLanding() {
 
           <div className="right-scroller" id="serviceScroller" ref={scrollerRef}>
             <div className="top-line" aria-hidden="true" />
-            <PlanSwitcher plans={plans} activePlanId={activePlanId} onSelectPlan={setActivePlanId} />
+            <PlanSwitcher planOrder={planOrder} activePlanId={activePlanId} onSelectPlan={setActivePlanId} />
 
             {services.map((service) => (
               <FeatureSection
@@ -119,6 +120,7 @@ export default function ServiceLanding() {
                 service={service}
                 active={activeId === service.id}
                 setSectionRef={setSectionRef}
+                activePlan={activePlan}
               />
             ))}
           </div>
