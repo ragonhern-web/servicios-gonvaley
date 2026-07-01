@@ -37,7 +37,8 @@ export default function FeatureSection({ service, active, setSectionRef }: Props
                 className={`platform-chip${selectedPlatformId === platform.id ? " is-active" : ""}`}
                 onClick={() => setSelectedPlatformId(platform.id)}
               >
-                <span className={`icon ${platform.icon}`} aria-hidden="true" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="platform-logo" src={platform.logo} alt="" aria-hidden="true" />
                 <strong>{platform.mockup.label}</strong>
               </button>
             ))}

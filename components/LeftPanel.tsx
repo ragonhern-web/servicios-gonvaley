@@ -1,4 +1,5 @@
 import type { Plan, Service, ServiceId } from "@/data/services";
+import StepIcon from "./StepIcon";
 
 type Props = {
   services: Service[];
@@ -45,7 +46,7 @@ export default function LeftPanel({ services, activeId, onNavigate, activePlan }
               onClick={() => onNavigate(service.id)}
             >
               <span>{service.label}</span>
-              <strong>{service.number}</strong>
+              <StepIcon id={service.id} />
             </button>
           ))}
         </nav>

@@ -10,7 +10,7 @@ type Props = {
 export default function FloatingNav({ plans, activePlanId, onSelectPlan, onStart }: Props) {
   return (
     <footer className="floating-nav" aria-label="Planes disponibles">
-      <div className="floating-brand"><span className="pause-dot">Ⅱ</span><strong>AMZ Creatives</strong></div>
+      <div className="floating-brand"><span className="pause-dot">Ⅱ</span><strong>Elige tu plan</strong></div>
       {plans.map((plan) => (
         <button
           key={plan.id}

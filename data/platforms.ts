@@ -4,6 +4,8 @@ export type Platform = {
   id: PlatformId;
   name: string;
   icon: "insta" | "tiktok" | "shorts" | "google";
+  /** Logo oficial en PNG, servido desde /public/platforms. */
+  logo: string;
   title: string;
   description: string;
   mockup: {
@@ -20,6 +22,7 @@ export const platforms: Platform[] = [
     id: "instagram",
     name: "Instagram",
     icon: "insta",
+    logo: "/platforms/instagram.png",
     title: "Feed, stories y reels",
     description: "Publicaciones, carruseles y stories diarias pensadas para mantener tu perfil activo y reconocible.",
     mockup: {
@@ -33,6 +36,7 @@ export const platforms: Platform[] = [
     id: "tiktok",
     name: "TikTok",
     icon: "tiktok",
+    logo: "/platforms/tiktok.png",
     title: "Vídeo corto local",
     description: "Vídeos cortos con ganchos rápidos, pensados para el algoritmo y el público de tu zona.",
     mockup: {
@@ -46,6 +50,7 @@ export const platforms: Platform[] = [
     id: "shorts",
     name: "YouTube Shorts",
     icon: "shorts",
+    logo: "/platforms/shorts.png",
     title: "Contenido vertical",
     description: "Reaprovechamos el contenido de vídeo para llegar también a la audiencia de YouTube.",
     mockup: {
@@ -59,6 +64,7 @@ export const platforms: Platform[] = [
     id: "google",
     name: "Google My Business",
     icon: "google",
+    logo: "/platforms/gmb.png",
     title: "Búsqueda y reseñas",
     description: "Publicaciones, fotos y gestión de reseñas para reforzar tu presencia en búsquedas locales.",
     mockup: {

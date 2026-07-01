@@ -1,5 +1,6 @@
 import type { Service } from "@/data/services";
 import type { Platform, PlatformId } from "@/data/platforms";
+import StrategyCalendar from "./StrategyCalendar";
 
 type Props = {
   visual: Service["visual"];
@@ -9,7 +10,7 @@ type Props = {
 
 export function VisualCard({ visual, platforms, selectedPlatformId }: Props) {
   if (visual === "platforms") return <PlatformsVisual platforms={platforms ?? []} selectedPlatformId={selectedPlatformId} />;
-  if (visual === "strategy") return <StrategyVisual />;
+  if (visual === "strategy") return <StrategyCalendar />;
   if (visual === "content") return <ContentVisual />;
   if (visual === "community") return <CommunityVisual />;
   return <ReportsVisual />;
@@ -31,7 +32,8 @@ function PlatformsVisual({ platforms, selectedPlatformId }: { platforms: Platfor
                 <>
                   <div className="platform-phone-top" />
                   <div className="platform-phone-header">
-                    <span className={`icon ${platform.icon}`} aria-hidden="true" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="platform-logo" src={platform.logo} alt="" aria-hidden="true" />
                     <strong>{platform.mockup.label}</strong>
                   </div>
                   <div className="platform-phone-feed">
@@ -44,27 +46,6 @@ function PlatformsVisual({ platforms, selectedPlatformId }: { platforms: Platfor
             </div>
           );
         })}
-      </div>
-    </div>
-  );
-}
-
-function StrategyVisual() {
-  return (
-    <div className="visual-card strategy-visual">
-      <div className="calendar-header">
-        <div><span>Plan mensual</span><strong>Julio</strong></div>
-        <button type="button">Objetivos</button>
-      </div>
-      <div className="calendar-grid">
-        <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
-        <button className="empty" type="button">1</button><button type="button">2</button><button className="tag reel" type="button">3 Reel</button><button type="button">4</button><button className="tag story" type="button">5 Stories</button><button type="button">6</button><button type="button">7</button>
-        <button className="tag carousel" type="button">8 Carrusel</button><button type="button">9</button><button type="button">10</button><button className="tag gmb" type="button">11 Google</button><button type="button">12</button><button type="button">13</button><button type="button">14</button>
-        <button type="button">15</button><button className="tag reel" type="button">16 Reel</button><button type="button">17</button><button type="button">18</button><button className="tag promo" type="button">19 Promo</button><button type="button">20</button><button type="button">21</button>
-        <button className="tag carousel" type="button">22 Carrusel</button><button type="button">23</button><button className="tag reel" type="button">24 Reel</button><button type="button">25</button><button type="button">26</button><button type="button">27</button><button type="button">28</button>
-      </div>
-      <div className="objective-stack">
-        <span>Visibilidad</span><span>Confianza</span><span>Promoción</span><span>Captación</span>
       </div>
     </div>
   );
