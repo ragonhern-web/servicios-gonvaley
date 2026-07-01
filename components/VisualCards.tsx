@@ -1,9 +1,11 @@
+import { useRef, type TouchEvent } from "react";
 import type { Service } from "@/data/services";
 import type { Platform, PlatformId } from "@/data/platforms";
 import { isPlatformAvailable } from "@/data/platforms";
 import type { GoogleBusinessLevel, PlanConfig } from "@/data/planConfigs";
 import { withBasePath } from "@/utils/basePath";
 import StrategyCalendar from "./StrategyCalendar";
+import ContentVisual from "./ContentVisual";
 
 type Props = {
   visual: Service["visual"];
@@ -42,13 +44,29 @@ function PlatformsVisual({
   activePlan: PlanConfig;
 }) {
   const platform = platforms.find((p) => p.id === selectedPlatformId) ?? platforms[0];
+  const touchStartX = useRef<number | null>(null);
+
+  const onTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = event.touches[0].clientX;
+  };
+  const onTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null || !platform) return;
+    const delta = event.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > 40) {
+      const currentIndex = platforms.findIndex((p) => p.id === platform.id);
+      const nextIndex = Math.min(Math.max(currentIndex + (delta < 0 ? 1 : -1), 0), platforms.length - 1);
+      onSelectPlatform?.(platforms[nextIndex].id);
+    }
+    touchStartX.current = null;
+  };
+
   if (!platform) return null;
   const available = isPlatformAvailable(activePlan, platform.id);
 
   return (
     <div className="visual-card platform-visual">
       <div className="phone-showcase">
-        <div className="phone-device">
+        <div className="phone-device" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           <div className="phone-notch" aria-hidden="true" />
           <div className="phone-screen">
             {!available ? (
@@ -143,36 +161,6 @@ function LockedScreen({ planName }: { planName: string }) {
       </svg>
       <strong>Google My Business no está disponible en el plan {planName}.</strong>
       <p>Selecciona Crecimiento o Premium para activarlo.</p>
-    </div>
-  );
-}
-
-function ContentVisual({ activePlan }: { activePlan: PlanConfig }) {
-  const storiesLabel = activePlan.storiesDaysPerMonth === "daily" ? "Diarias" : `${activePlan.storiesDaysPerMonth} días/mes`;
-  const reelsLabel = `${activePlan.reelsRangeLabel ?? activePlan.reelsPerMonth} vídeos/mes`;
-  const hasCreative = activePlan.creativeSessionsPerMonth > 0;
-
-  return (
-    <div className="visual-card content-visual">
-      <div className="phone-mockup">
-        <div className="phone-top" />
-        <div className="story-row"><span /><span /><span /><span /></div>
-        <div className="reel-preview">
-          <span>REEL</span>
-          <strong>{reelsLabel}</strong>
-          <p>Grabación, edición y adaptación a cada plataforma.</p>
-        </div>
-        <div className="feed-row"><div /><div /><div /></div>
-      </div>
-      <div className="floating-post post-one"><strong>{activePlan.postsPerMonth}</strong><span>posts/carruseles</span></div>
-      <div className="floating-post post-two"><strong>Stories</strong><span>{storiesLabel}</span></div>
-      <div className={`floating-post post-three${hasCreative ? "" : " is-muted"}`}>
-        <strong>{hasCreative ? activePlan.creativeSessionsPerMonth : "—"}</strong>
-        <span>{hasCreative ? "sesiones foto/mes" : "sin sesión de foto"}</span>
-      </div>
-      {activePlan.quarterlyVideo && (
-        <div className="floating-post post-four"><strong>1</strong><span>vídeo promo/trimestre</span></div>
-      )}
     </div>
   );
 }

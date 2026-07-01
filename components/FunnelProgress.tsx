@@ -22,13 +22,13 @@ export default function FunnelProgress({ services, activeId, onNavigate }: Props
 
         {services.map((service, index) => {
           const isActive = activeId === service.id;
-          const isPast = index < activeIndex;
+          const isFilled = index <= activeIndex;
 
           return (
             <button
               key={service.id}
               type="button"
-              className={`funnel-level${isActive ? " is-active" : ""}${isPast ? " is-past" : ""}`}
+              className={`funnel-level${isFilled ? " is-filled" : ""}${isActive ? " is-active" : ""}`}
               style={{ "--level-index": index } as CSSProperties}
               onClick={() => onNavigate(service.id)}
               aria-current={isActive ? "true" : undefined}
