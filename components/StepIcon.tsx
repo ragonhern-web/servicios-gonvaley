@@ -1,5 +1,6 @@
 import type { ServiceId } from "@/data/services";
 import { platforms } from "@/data/platforms";
+import { withBasePath } from "@/utils/basePath";
 
 type Props = {
   id: ServiceId;
@@ -11,7 +12,7 @@ export default function StepIcon({ id }: Props) {
       <span className="step-icon step-icon-platforms" aria-hidden="true">
         {platforms.map((platform) => (
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={platform.id} className="platform-logo" src={platform.logo} alt={platform.name} />
+          <img key={platform.id} className="platform-logo" src={withBasePath(platform.logo)} alt={platform.name} />
         ))}
       </span>
     );

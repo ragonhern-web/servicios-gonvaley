@@ -1,5 +1,6 @@
 import type { Service } from "@/data/services";
 import type { Platform, PlatformId } from "@/data/platforms";
+import { withBasePath } from "@/utils/basePath";
 import StrategyCalendar from "./StrategyCalendar";
 
 type Props = {
@@ -27,13 +28,13 @@ function PlatformsVisual({ platforms, selectedPlatformId }: { platforms: Platfor
             <div key={platform.id} className={`platform-phone${isSelected ? " is-selected" : ""}`}>
               {platform.mockup.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img className="platform-phone-image" src={platform.mockup.image} alt={platform.mockup.label} />
+                <img className="platform-phone-image" src={withBasePath(platform.mockup.image)} alt={platform.mockup.label} />
               ) : (
                 <>
                   <div className="platform-phone-top" />
                   <div className="platform-phone-header">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="platform-logo" src={platform.logo} alt="" aria-hidden="true" />
+                    <img className="platform-logo" src={withBasePath(platform.logo)} alt="" aria-hidden="true" />
                     <strong>{platform.mockup.label}</strong>
                   </div>
                   <div className="platform-phone-feed">

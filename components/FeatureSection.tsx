@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Service } from "@/data/services";
 import { platforms } from "@/data/platforms";
+import { withBasePath } from "@/utils/basePath";
 import { VisualCard } from "./VisualCards";
 
 type Props = {
@@ -38,7 +39,7 @@ export default function FeatureSection({ service, active, setSectionRef }: Props
                 onClick={() => setSelectedPlatformId(platform.id)}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="platform-logo" src={platform.logo} alt="" aria-hidden="true" />
+                <img className="platform-logo" src={withBasePath(platform.logo)} alt="" aria-hidden="true" />
                 <strong>{platform.mockup.label}</strong>
               </button>
             ))}
