@@ -1,6 +1,6 @@
 import type { Service, ServiceId } from "@/data/services";
 import type { PlanConfig } from "@/data/planConfigs";
-import StepIcon from "./StepIcon";
+import FunnelProgress from "./FunnelProgress";
 
 type Props = {
   services: Service[];
@@ -43,20 +43,7 @@ export default function LeftPanel({ services, activeId, onNavigate, activePlan }
           </div>
         </section>
 
-        <nav className="steps-box" aria-label="Secciones del servicio">
-          <p>Qué gestionamos por ti</p>
-          {services.map((service) => (
-            <button
-              key={service.id}
-              className={`step-link${activeId === service.id ? " is-active" : ""}`}
-              type="button"
-              onClick={() => onNavigate(service.id)}
-            >
-              <span>{service.label}</span>
-              <StepIcon id={service.id} />
-            </button>
-          ))}
-        </nav>
+        <FunnelProgress services={services} activeId={activeId} onNavigate={onNavigate} />
       </div>
     </aside>
   );

@@ -20,22 +20,22 @@ export const services: Service[] = [
     visual: "platforms"
   },
   {
-    id: "estrategia",
-    number: "02",
-    label: "Estrategia",
-    heading: "No publicamos por publicar. Creamos una dirección.",
-    text:
-      "Definimos un plan de contenido mensual según tu negocio, tus objetivos, tu zona y el tipo de cliente que quieres atraer.",
-    visual: "strategy"
-  },
-  {
     id: "contenido",
-    number: "03",
+    number: "02",
     label: "Contenido",
     heading: "Reels, carruseles y stories para mantener tu marca activa.",
     text:
       "Creamos contenido visual para que tu negocio se vea profesional durante todo el mes: publicaciones, carruseles, stories diarias y vídeos cortos para redes.",
     visual: "content"
+  },
+  {
+    id: "estrategia",
+    number: "03",
+    label: "Estrategia",
+    heading: "No publicamos por publicar. Creamos una dirección.",
+    text:
+      "Definimos un plan de contenido mensual según tu negocio, tus objetivos, tu zona y el tipo de cliente que quieres atraer.",
+    visual: "strategy"
   },
   {
     id: "comunidad",
