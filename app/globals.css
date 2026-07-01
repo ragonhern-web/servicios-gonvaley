@@ -900,21 +900,7 @@ button.cal-day:not(.cal-day-empty):hover { background: rgba(255,255,255,.1); tra
     gap: 34px;
   }
   .hero-copy h1 { font-size: clamp(42px, 12vw, 64px); }
-  .steps-box {
-    position: sticky;
-    bottom: 104px;
-    z-index: 20;
-    background: rgba(9, 24, 39, .55);
-    border: 1px solid rgba(255,255,255,.14);
-    border-radius: 22px;
-    padding: 12px;
-    backdrop-filter: blur(18px);
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  .steps-box p { margin-bottom: 9px; }
-  .step-link { display: inline-flex; width: auto; margin-right: 6px; padding: 12px 14px; }
-  .step-icon { margin-left: 16px; }
+  .steps-box { display: none; }
   .right-frame { height: auto; border-left: 0; overflow: visible; }
   .right-scroller { height: auto; overflow: visible; padding-left: 0; scroll-snap-type: none; }
   .rail, .top-line { display: none; }

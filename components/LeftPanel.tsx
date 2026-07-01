@@ -38,7 +38,7 @@ export default function LeftPanel({ services, activeId, onNavigate, activePlan }
           </div>
 
           <div className="hero-actions">
-            <button className="primary-btn" type="button" onClick={() => onNavigate("plataformas")}>Ver qué incluye <span>→</span></button>
+            <button className="primary-btn" type="button" onClick={() => onNavigate("plataformas")}>Ver qué incluye <span>👀</span></button>
             <div className="price-pill"><strong>{activePlan.name}</strong><span>{activePlan.price}</span></div>
           </div>
         </section>
