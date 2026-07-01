@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { plans, services, type PlanId, type ServiceId } from "@/data/services";
 import FeatureSection from "./FeatureSection";
-import FloatingNav from "./FloatingNav";
+import PlanSwitcher from "./PlanSwitcher";
 import LeftPanel from "./LeftPanel";
 
 export default function ServiceLanding() {
@@ -111,7 +111,7 @@ export default function ServiceLanding() {
 
           <div className="right-scroller" id="serviceScroller" ref={scrollerRef}>
             <div className="top-line" aria-hidden="true" />
-            <div className="announcement"><span /> Gestión mensual para marcas locales que no quieren redes de adorno <b>→</b></div>
+            <PlanSwitcher plans={plans} activePlanId={activePlanId} onSelectPlan={setActivePlanId} />
 
             {services.map((service) => (
               <FeatureSection
@@ -124,13 +124,6 @@ export default function ServiceLanding() {
           </div>
         </section>
       </main>
-
-      <FloatingNav
-        plans={plans}
-        activePlanId={activePlanId}
-        onSelectPlan={setActivePlanId}
-        onStart={() => scrollToSection("plataformas")}
-      />
     </>
   );
 }
