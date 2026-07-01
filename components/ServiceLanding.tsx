@@ -5,6 +5,7 @@ import { services, type ServiceId } from "@/data/services";
 import { planConfigs, planOrder, type PlanId } from "@/data/planConfigs";
 import FeatureSection from "./FeatureSection";
 import PlanSwitcher from "./PlanSwitcher";
+import PlansComparison from "./PlansComparison";
 import LeftPanel from "./LeftPanel";
 
 export default function ServiceLanding() {
@@ -123,6 +124,8 @@ export default function ServiceLanding() {
                 activePlan={activePlan}
               />
             ))}
+
+            <PlansComparison activePlanId={activePlanId} onSelectPlan={setActivePlanId} />
           </div>
         </section>
       </main>

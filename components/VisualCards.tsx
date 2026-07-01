@@ -47,7 +47,6 @@ function PlatformsVisual({
 
   return (
     <div className="visual-card platform-visual">
-      <div className="visual-glow" />
       <div className="phone-showcase">
         <div className="phone-device">
           <div className="phone-notch" aria-hidden="true" />
