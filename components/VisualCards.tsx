@@ -1,34 +1,50 @@
 import type { Service } from "@/data/services";
+import type { Platform, PlatformId } from "@/data/platforms";
 
 type Props = {
   visual: Service["visual"];
+  platforms?: Platform[];
+  selectedPlatformId?: PlatformId;
 };
 
-export function VisualCard({ visual }: Props) {
-  if (visual === "platforms") return <PlatformsVisual />;
+export function VisualCard({ visual, platforms, selectedPlatformId }: Props) {
+  if (visual === "platforms") return <PlatformsVisual platforms={platforms ?? []} selectedPlatformId={selectedPlatformId} />;
   if (visual === "strategy") return <StrategyVisual />;
   if (visual === "content") return <ContentVisual />;
   if (visual === "community") return <CommunityVisual />;
   return <ReportsVisual />;
 }
 
-function PlatformsVisual() {
+function PlatformsVisual({ platforms, selectedPlatformId }: { platforms: Platform[]; selectedPlatformId?: PlatformId }) {
   return (
     <div className="visual-card platform-visual">
       <div className="visual-glow" />
-      <div className="browser-card large">
-        <div className="browser-dots"><span /><span /><span /></div>
-        <h3>Presencia conectada</h3>
-        <p>Una estrategia. Cuatro puntos de contacto. Cero cuentas criando polvo digital.</p>
-        <div className="platform-grid">
-          <article><div className="icon insta" /><strong>Instagram</strong><span>Feed, stories y reels</span></article>
-          <article><div className="icon tiktok" /><strong>TikTok</strong><span>Vídeo corto local</span></article>
-          <article><div className="icon shorts" /><strong>Shorts</strong><span>Contenido vertical</span></article>
-          <article><div className="icon google" /><strong>Google Business</strong><span>Búsqueda y reseñas</span></article>
-        </div>
+      <div className="platform-showcase">
+        {platforms.map((platform) => {
+          const isSelected = platform.id === selectedPlatformId;
+          return (
+            <div key={platform.id} className={`platform-phone${isSelected ? " is-selected" : ""}`}>
+              {platform.mockup.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img className="platform-phone-image" src={platform.mockup.image} alt={platform.mockup.label} />
+              ) : (
+                <>
+                  <div className="platform-phone-top" />
+                  <div className="platform-phone-header">
+                    <span className={`icon ${platform.icon}`} aria-hidden="true" />
+                    <strong>{platform.mockup.label}</strong>
+                  </div>
+                  <div className="platform-phone-feed">
+                    <span>{platform.mockup.heading}</span>
+                    <div className="platform-phone-feed-grid"><i /><i /><i /><i /><i /><i /></div>
+                    <p>{platform.mockup.detail}</p>
+                  </div>
+                </>
+              )}
+            </div>
+          );
+        })}
       </div>
-      <div className="mini-stat stat-a"><strong>4</strong><span>canales activos</span></div>
-      <div className="mini-stat stat-b"><strong>Local</strong><span>orientado a zona</span></div>
     </div>
   );
 }
