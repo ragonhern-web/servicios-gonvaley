@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { PlanConfig } from "@/data/planConfigs";
-import { buildMonthPlan, dayHasCategory, isCategoryAvailable, type CalendarCategory } from "@/utils/calendarPlanner";
+import { buildMonthPlan, categoryTotal, dayHasCategory, isCategoryAvailable, type CalendarCategory } from "@/utils/calendarPlanner";
 
 type Props = {
   activePlan: PlanConfig;
@@ -106,7 +106,8 @@ export default function StrategyCalendar({ activePlan }: Props) {
                 onClick={() => toggleCategory(filter.id)}
               >
                 <i className={`cal-dot ${filter.dotClass}`} />
-                {filter.label}
+                <span className="cal-filter-label">{filter.label}</span>
+                <span className="cal-filter-count">{categoryTotal(monthPlan, filter.id)}</span>
                 {!available && (
                   <svg className="cal-filter-lock" width="10" height="10" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                     <rect x="4.5" y="9" width="11" height="8" rx="2" stroke="currentColor" strokeWidth="1.7" />

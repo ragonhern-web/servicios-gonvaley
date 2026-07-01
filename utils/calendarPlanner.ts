@@ -158,3 +158,11 @@ export function isCategoryAvailable(plan: PlanConfig, category: CalendarCategory
   if (category === "creative") return plan.creativeSessionsPerMonth > 0;
   return true;
 }
+
+export function categoryTotal(monthPlan: MonthPlan, category: CalendarCategory): number {
+  if (category === "posts") return monthPlan.totals.posts;
+  if (category === "reels") return monthPlan.totals.reels;
+  if (category === "stories") return monthPlan.totals.stories;
+  if (category === "google") return monthPlan.totals.google;
+  return monthPlan.totals.creative;
+}
